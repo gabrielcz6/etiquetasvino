@@ -11,7 +11,7 @@ def crear_etiqueta():
     generador = WineLabelGenerator()
     
     # Caja de texto para el input del usuario
-    user_input = st.text_input("Introduce el prompt para la etiqueta", "")
+    user_input = st.text_area("Introduce el prompt para la etiqueta", "")
     
     # Botón para generar las imágenes
     if st.button("Generar"):

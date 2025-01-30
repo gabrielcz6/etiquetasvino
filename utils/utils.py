@@ -6,7 +6,15 @@ class WineLabelGenerator:
     def __init__(self):
         load_dotenv()
         self.client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
-        self.descriptionprompt = """Eres un agente que se encarga de crear una descripción para una etiqueta de vino, la etiqueta tiene que ser en 2d, no estar ya impresa. Esta etiqueta se mandará a dall-e-3 para que cree una imagen a partir del prompt que vas a crear. Este prompt debe de ser corto y preciso, ademas debe tener su seccion de reglas con sangria"""
+        self.descriptionprompt = """
+
+        #1 Actúa como un ingeniero de Prompts dedicado a hacer prompts para el modelo de generacion de imagen DALL E 3
+        #2 Revisa el siguiente Prompt para mi
+        #3 Optimizar para mejorarlo, y no confundir al generador de imagenes
+        #4 Asegurarse de que esto genere una etiqueta para vino.
+        #5 Captar bien lo que quiere el usuario
+        
+        """
 
     def generate_label_and_images(self, user_input):
         # Generar el prompt de la etiqueta de vino
@@ -17,7 +25,9 @@ class WineLabelGenerator:
                 {"role": "user", "content": user_input}
             ]
         )
+        
         prompt_etiqueta = completion.choices[0].message.content
+        print(prompt_etiqueta)
         prompt = prompt_etiqueta.replace('"', "'")
 
         # Retornar las URLs de las 3 imágenes generadas
@@ -34,4 +44,6 @@ class WineLabelGenerator:
         
         # Retornar las URLs de las 3 imágenes generadas
         return image_urls
-   
+    
+    # Instrucciones de diseño para etiquetas de vino
+
